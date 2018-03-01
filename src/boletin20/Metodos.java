@@ -26,6 +26,7 @@ public class Metodos {
                          + "*   3)Visualizar libros disponibles      *\n"
                          + "*   4)Borrar libros con 0 unidades       *\n"
                          + "*   5)Modificar prezo dun libro          *\n"
+                         + "*   6)Separar libros por autor           *\n"
                          + "*   0)Salir                              *\n"
                          + "******************************************");
         
@@ -56,6 +57,12 @@ public class Metodos {
                             Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         break;
+                case 6: try {
+                            this.librosPorAutor();
+                        } catch (IOException ex) {
+                            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        break;
                 case 0: break;
                 default: System.out.println("Opcion no valida");
             }
@@ -66,6 +73,7 @@ public class Metodos {
                          + "*   3)Visualizar libros disponibles      *\n"
                          + "*   4)Borrar libros con 0 unidades       *\n"
                          + "*   5)Modificar prezo dun libro          *\n"
+                         + "*   6)Separar libros por autor           *\n"
                          + "*   0)Salir                              *\n"
                          + "******************************************");
             opcion = Integer.parseInt(JOptionPane.showInputDialog("Intruduce una opcion"));
@@ -202,5 +210,31 @@ public class Metodos {
         else{
             System.out.println("Se ha cambiado el precio con exito");
         }
+    }
+    
+    public void librosPorAutor() throws IOException{
+        String autor = JOptionPane.showInputDialog("Introduce el autor del que deseas recoger sus obras");
+        String linea;
+        try {
+            esc = new PrintWriter("autor.txt");
+            sc =  new Scanner(new File("libros.txt"));
+            while(sc.hasNextLine()){
+                linea = sc.nextLine();
+                String [] lista=linea.split(";");
+                if (lista[1].equalsIgnoreCase(autor)){
+                    for (int i=0;i<lista.length;i++ ){
+                        esc.write(lista[i]+";");
+                    }
+                    esc.write("\n");                    
+                }
+            }    
+        } catch (IOException ex) {
+            System.out.println("ERROR! "+ex.getMessage());
+        }
+        finally{
+            sc.close();
+            esc.close();
+        }
+        
     }
 }

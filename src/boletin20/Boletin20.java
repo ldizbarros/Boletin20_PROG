@@ -12,6 +12,7 @@ package boletin20;
  * c) visualizar visualiza todos os datos do ficheiro
  * d) borrar  borra os libros que teñan 0 unidades
  * e) modificar  modifica o precio dun libro determinado
+ * Leer o ficheiro que temos e crear un fichero nuevo con os titulos de un determinado autor
  **/
 
 public class Boletin20 {
